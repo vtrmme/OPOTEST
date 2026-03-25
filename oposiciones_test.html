@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpoTest · Cuerpo General Administrativos del Estado</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1b2d42;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d6;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --error: #9b2226;
+    --error-bg: #f8d7da;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .logo-text {
+    font-family: 'DM Serif Display', serif;
+    color: var(--cream);
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+  }
+
+  .logo-text span { color: var(--gold); }
+
+  .header-badge {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold-light);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* MAIN LAYOUT */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+  }
+
+  /* TEMA HEADER */
+  .tema-header {
+    background: var(--navy-mid);
+    border-radius: var(--radius);
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tema-header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border: 2px solid rgba(201,168,76,0.15);
+    border-radius: 50%;
+  }
+
+  .tema-header::after {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 120px; height: 120px;
+    border: 2px solid rgba(201,168,76,0.08);
+    border-radius: 50%;
+  }
+
+  .tema-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+  }
+
+  .tema-header h1 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--cream);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .tema-header p {
+    color: rgba(245,240,232,0.6);
+    font-size: 0.875rem;
+  }
+
+  /* EXAM SELECTOR */
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--cream-dark);
+  }
+
+  .exam-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .exam-card {
+    background: white;
+    border: 2px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exam-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(13,27,42,0.1);
+  }
+
+  .exam-card.active {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, #fffdf5, #fff8e6);
+  }
+
+  .exam-card.active::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--gold);
+  }
+
+  .exam-card.completed {
+    border-color: #2d6a4f44;
+    background: #f8fffa;
+  }
+
+  .exam-number {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+  }
+
+  .exam-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .exam-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .exam-score {
+    margin-left: auto;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+
+  .exam-score.pass { color: var(--success); }
+  .exam-score.fail { color: var(--error); }
+
+  /* QUIZ AREA */
+  .quiz-area { display: none; }
+  .quiz-area.visible { display: block; }
+
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .quiz-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--navy);
+  }
+
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .progress-bar {
+    width: 140px;
+    height: 6px;
+    background: var(--cream-dark);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--cream-dark);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .question-text {
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0.9rem 1.1rem;
+    border: 2px solid var(--cream-dark);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: white;
+    text-align: left;
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .option:hover:not(:disabled) {
+    border-color: var(--gold);
+    background: #fffdf5;
+  }
+
+  .option-letter {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--cream-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    transition: all 0.15s ease;
+  }
+
+  .option.selected { border-color: var(--navy); background: #f0f4ff; }
+  .option.selected .option-letter { background: var(--navy); color: white; }
+
+  .option.correct { border-color: var(--success); background: var(--success-bg); }
+  .option.correct .option-letter { background: var(--success); color: white; }
+
+  .option.wrong { border-color: var(--error); background: var(--error-bg); }
+  .option.wrong .option-letter { background: var(--error); color: white; }
+
+  .option.show-correct { border-color: var(--success); background: var(--success-bg); }
+  .option.show-correct .option-letter { background: var(--success); color: white; }
+
+  .option:disabled { cursor: default; }
+
+  /* EXPLANATION */
+  .explanation {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background: #f8f9ff;
+    border-left: 3px solid var(--navy-mid);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--navy-mid);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .explanation.visible { display: block; }
+
+  .explanation strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--navy);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* NAVIGATION */
+  .quiz-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: white;
+  }
+
+  .btn-primary:hover { background: var(--navy-mid); transform: translateY(-1px); }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 2px solid var(--cream-dark);
+  }
+
+  .btn-ghost:hover { border-color: var(--navy); color: var(--navy); }
+
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  /* RESULTS */
+  .results-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid var(--cream-dark);
+    animation: slideIn 0.4s ease;
+  }
+
+  .results-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+  }
+
+  .results-circle.pass {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 3px solid var(--success);
+  }
+
+  .results-circle.fail {
+    background: var(--error-bg);
+    color: var(--error);
+    border: 3px solid var(--error);
+  }
+
+  .results-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .results-sub {
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .results-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-box {
+    padding: 1rem;
+    background: var(--cream);
+    border-radius: 8px;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-num.green { color: var(--success); }
+  .stat-num.red { color: var(--error); }
+  .stat-num.gold { color: var(--gold); }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  .results-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* QUESTION DOT NAV */
+  .dot-nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid var(--cream-dark);
+    color: var(--muted);
+    background: white;
+    transition: all 0.15s;
+  }
+
+  .dot.answered { background: var(--navy); color: white; border-color: var(--navy); }
+  .dot.current { border-color: var(--gold); color: var(--gold); }
+  .dot.correct-dot { background: var(--success); color: white; border-color: var(--success); }
+  .dot.wrong-dot { background: var(--error); color: white; border-color: var(--error); }
+
+  @media (max-width: 600px) {
+    .exam-grid { grid-template-columns: 1fr; }
+    .results-stats { grid-template-columns: repeat(3,1fr); }
+    .tema-header { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">⚖️</div>
+    <span class="logo-text">Opo<span>Test</span></span>
+  </div>
+  <div class="header-badge">C.G. Administrativos del Estado</div>
+</header>
+
+<div class="container">
+
+  <div class="tema-header">
+    <div class="tema-tag">Bloque 1 · Tema 1</div>
+    <h1>La Constitución Española: Características, Estructura y Título Preliminar</h1>
+    <p>3 exámenes disponibles · 10 preguntas cada uno</p>
+  </div>
+
+  <p class="section-title">Selecciona un examen</p>
+
+  <div class="exam-grid" id="examGrid">
+    <div class="exam-card" onclick="startExam(0)" id="card0">
+      <div class="exam-number">Examen 1</div>
+      <div class="exam-name">Principios y Estructura</div>
+      <div class="exam-meta">
+        <span>📝 10 preguntas</span>
+        <span id="score0" class="exam-score"></span>
+      </div>
+    </div>
+    <div class="exam-card" onclick="startExam(1)" id="card1">
+      <div class="exam-number">Examen 2</div>
+      <div class="exam-name">Título Preliminar (Arts. 1–5)</div>
+      <div class="exam-meta">
+        <span>📝 10 preguntas</span>
+        <span id="score1" class="exam-score"></span>
+      </div>
+    </div>
+    <div class="exam-card" onclick="startExam(2)" id="card2">
+      <div class="exam-number">Examen 3</div>
+      <div class="exam-name">Título Preliminar (Arts. 6–9)</div>
+      <div class="exam-meta">
+        <span>📝 10 preguntas</span>
+        <span id="score2" class="exam-score"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div class="quiz-area" id="quizArea">
+    <div class="quiz-header">
+      <div class="quiz-title" id="quizTitle"></div>
+      <div class="progress-wrap">
+        <span id="progressText">1/10</span>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%"></div></div>
+      </div>
+    </div>
+
+    <div class="dot-nav" id="dotNav"></div>
+
+    <div id="questionContainer"></div>
+
+    <div class="quiz-nav">
+      <button class="btn btn-ghost" onclick="prevQuestion()" id="btnPrev">← Anterior</button>
+      <div style="display:flex;gap:0.75rem">
+        <button class="btn btn-ghost" onclick="backToMenu()">Volver al menú</button>
+        <button class="btn btn-primary" onclick="nextQuestion()" id="btnNext">Siguiente →</button>
+        <button class="btn btn-gold" onclick="finishExam()" id="btnFinish" style="display:none">Ver resultados ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS AREA -->
+  <div id="resultsArea" style="display:none">
+    <div class="results-card">
+      <div class="results-circle" id="resultsCircle"></div>
+      <div class="results-title" id="resultsTitle"></div>
+      <div class="results-sub" id="resultsSub"></div>
+      <div class="results-stats">
+        <div class="stat-box">
+          <span class="stat-num green" id="rCorrect">0</span>
+          <span class="stat-label">Correctas</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num red" id="rWrong">0</span>
+          <span class="stat-label">Erróneas</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num gold" id="rScore">0%</span>
+          <span class="stat-label">Nota</span>
+        </div>
+      </div>
+      <div class="results-actions">
+        <button class="btn btn-ghost" onclick="reviewExam()">Repasar respuestas</button>
+        <button class="btn btn-gold" onclick="restartExam()">Repetir examen</button>
+        <button class="btn btn-primary" onclick="backToMenu()">Menú principal</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const EXAMS = [
+  // EXAMEN 1: Principios y Estructura General
+  {
+    title: "Examen 1 — Principios y Estructura",
+    questions: [
+      {
+        q: "¿Cuál de las siguientes NO es una característica principal de la Constitución Española?",
+        opts: ["Monárquica","Democrática","Flexible","Rígida"],
+        answer: 2,
+        exp: "La CE es rígida, no flexible. Esto significa que su reforma requiere procedimientos especiales más complejos que la legislación ordinaria."
+      },
+      {
+        q: "¿Qué es el Preámbulo de la Constitución Española?",
+        opts: [
+          "El primer artículo de la Constitución",
+          "El pórtico de la CE que no tiene fuerza obligatoria",
+          "Una disposición adicional con valor normativo",
+          "El Título Preliminar de la Constitución"
+        ],
+        answer: 1,
+        exp: "El Preámbulo se encuentra fuera del articulado y es el 'pórtico' a la CE. No tiene fuerza obligatoria pero enuncia principios y valores que se desarrollan en el texto."
+      },
+      {
+        q: "¿De cuántos artículos consta la Constitución Española?",
+        opts: ["155","166","169","178"],
+        answer: 2,
+        exp: "La Constitución Española consta de 169 artículos distribuidos en el Título Preliminar y diez Títulos."
+      },
+      {
+        q: "¿Qué título de la CE regula la Corona?",
+        opts: ["Título I","Título II","Título III","Título IV"],
+        answer: 1,
+        exp: "El Título II (artículos 55-65) regula 'De la Corona'."
+      },
+      {
+        q: "La 'parte orgánica' de la Constitución comienza con:",
+        opts: ["El Título Preliminar","El Título I (Derechos y Deberes)","El Título II (De la Corona)","El Preámbulo"],
+        answer: 2,
+        exp: "La parte orgánica comienza en el Título II (De la Corona, arts. 55-65). La parte dogmática comprende el Título Preliminar y el Título I."
+      },
+      {
+        q: "¿Cuántas disposiciones adicionales tiene la Constitución?",
+        opts: ["2","4","6","9"],
+        answer: 1,
+        exp: "La Constitución tiene 4 disposiciones adicionales, 9 disposiciones transitorias, 1 disposición derogatoria y 1 disposición final."
+      },
+      {
+        q: "¿Qué principio constitucional prohíbe la retroactividad de sanciones desfavorables?",
+        opts: [
+          "Principio de legalidad",
+          "Principio de seguridad jurídica",
+          "Principio de irretroactividad",
+          "Principio de responsabilidad"
+        ],
+        answer: 2,
+        exp: "El principio de irretroactividad de las disposiciones sancionadoras no favorables o restrictivas de derechos individuales está recogido en el art. 9.3 CE."
+      },
+      {
+        q: "El Título VI de la Constitución regula:",
+        opts: ["Las Cortes Generales","El Gobierno y la Administración","El Poder Judicial","Economía y Hacienda"],
+        answer: 2,
+        exp: "El Título VI (arts. 117-127) regula 'Del Poder Judicial'."
+      },
+      {
+        q: "¿Cuántas disposiciones transitorias tiene la Constitución Española?",
+        opts: ["4","7","9","11"],
+        answer: 2,
+        exp: "La Constitución tiene 9 disposiciones transitorias, además de 4 adicionales, 1 derogatoria y 1 final."
+      },
+      {
+        q: "La reforma constitucional está regulada en:",
+        opts: ["Título VIII (arts. 137-158)","Título IX (arts. 159-165)","Título X (arts. 166-169)","Título VII (arts. 128-136)"],
+        answer: 2,
+        exp: "El Título X (arts. 166-169) regula 'De la Reforma Constitucional', siendo solo 4 artículos que establecen los procedimientos de reforma ordinaria y agravada."
+      }
+    ]
+  },
+
+  // EXAMEN 2: Título Preliminar Arts. 1-5
+  {
+    title: "Examen 2 — Título Preliminar (Arts. 1–5)",
+    questions: [
+      {
+        q: "Según el artículo 1 CE, ¿cuáles son los valores superiores del ordenamiento jurídico español?",
+        opts: [
+          "Libertad, igualdad, fraternidad y pluralismo político",
+          "Libertad, justicia, igualdad y pluralismo político",
+          "Legalidad, justicia, igualdad y libertad",
+          "Libertad, justicia, democracia e igualdad"
+        ],
+        answer: 1,
+        exp: "El art. 1.1 CE establece como valores superiores: la libertad, la justicia, la igualdad y el pluralismo político."
+      },
+      {
+        q: "¿Dónde reside la soberanía nacional según la Constitución?",
+        opts: ["En el Rey","En las Cortes Generales","En el pueblo español","En el Gobierno"],
+        answer: 2,
+        exp: "El art. 1.2 CE establece que 'la soberanía nacional reside en el pueblo español, del que emanan los poderes del Estado'."
+      },
+      {
+        q: "¿Cuál es la forma política del Estado español?",
+        opts: ["República parlamentaria","Monarquía constitucional","Monarquía parlamentaria","Estado federal"],
+        answer: 2,
+        exp: "El art. 1.3 CE establece que 'la forma política del Estado español es la Monarquía parlamentaria'."
+      },
+      {
+        q: "Según el artículo 2 CE, la Constitución se fundamenta en:",
+        opts: [
+          "La soberanía compartida de las nacionalidades",
+          "La indisoluble unidad de la Nación española",
+          "El derecho de autodeterminación de los pueblos",
+          "El federalismo entre las regiones históricas"
+        ],
+        answer: 1,
+        exp: "El art. 2 CE establece que la Constitución se fundamenta en la 'indisoluble unidad de la Nación española, patria común e indivisible de todos los españoles'."
+      },
+      {
+        q: "¿Qué deber establece el artículo 3 CE respecto al castellano?",
+        opts: [
+          "Los españoles tienen el derecho de conocerlo y usarlo",
+          "Solo los funcionarios tienen el deber de conocerlo",
+          "Todos los españoles tienen el deber de conocerlo y el derecho a usarlo",
+          "El castellano es opcional junto a las lenguas cooficiales"
+        ],
+        answer: 2,
+        exp: "El art. 3.1 CE establece que el castellano es la lengua española oficial del Estado y que 'todos los españoles tienen el deber de conocerla y el derecho a usarla'."
+      },
+      {
+        q: "Según el artículo 3 CE, ¿qué son las distintas modalidades lingüísticas de España?",
+        opts: [
+          "Un problema de convivencia que debe resolverse",
+          "Un patrimonio cultural de especial respeto y protección",
+          "Lenguas regionales sin reconocimiento oficial",
+          "Dialectos del castellano sin valor normativo"
+        ],
+        answer: 1,
+        exp: "El art. 3.3 CE establece que 'la riqueza de las distintas modalidades lingüísticas de España es un patrimonio cultural que será objeto de especial respeto y protección'."
+      },
+      {
+        q: "Según el artículo 4 CE, ¿cómo es la bandera de España?",
+        opts: [
+          "Tres franjas horizontales roja, amarilla y roja de igual anchura",
+          "Tres franjas horizontales roja, amarilla y roja, siendo la amarilla de doble anchura",
+          "Tres franjas verticales roja, amarilla y roja",
+          "Dos franjas rojas con una amarilla central de igual anchura"
+        ],
+        answer: 1,
+        exp: "El art. 4.1 CE establece que la bandera 'está formada por tres franjas horizontales, roja, amarilla y roja, siendo la amarilla de doble anchura que cada una de las rojas'."
+      },
+      {
+        q: "¿Qué establece el artículo 5 CE?",
+        opts: [
+          "Que el catalán es cooficial en Cataluña",
+          "Que la capital del Estado es la villa de Madrid",
+          "La composición de las Fuerzas Armadas",
+          "El sistema de partidos políticos"
+        ],
+        answer: 1,
+        exp: "El art. 5 CE es muy breve: 'La capital del Estado es la villa de Madrid'."
+      },
+      {
+        q: "Las lenguas distintas al castellano son oficiales en las CCAA:",
+        opts: [
+          "En todas las Comunidades Autónomas automáticamente",
+          "Solo en las Comunidades Autónomas históricas",
+          "De acuerdo con sus respectivos Estatutos",
+          "Por decisión del Gobierno central"
+        ],
+        answer: 2,
+        exp: "El art. 3.2 CE establece que las demás lenguas españolas 'serán también oficiales en las respectivas Comunidades Autónomas de acuerdo con sus Estatutos'."
+      },
+      {
+        q: "Respecto a las banderas autonómicas, el artículo 4 CE establece que:",
+        opts: [
+          "No pueden utilizarse en edificios públicos estatales",
+          "Sustituyen a la bandera de España en sus territorios",
+          "Se utilizarán junto a la bandera de España en edificios públicos y actos oficiales",
+          "Solo se usarán en actos de las propias Comunidades Autónomas"
+        ],
+        answer: 2,
+        exp: "El art. 4.2 CE establece que las banderas y enseñas autonómicas 'se utilizarán junto a la bandera de España en sus edificios públicos y en sus actos oficiales'."
+      }
+    ]
+  },
+
+  // EXAMEN 3: Título Preliminar Arts. 6-9
+  {
+    title: "Examen 3 — Título Preliminar (Arts. 6–9)",
+    questions: [
+      {
+        q: "Según el artículo 6 CE, ¿cuál es la función de los partidos políticos?",
+        opts: [
+          "Exclusivamente elaborar leyes en el Parlamento",
+          "Expresar el pluralismo político y concurrir a la formación de la voluntad popular",
+          "Controlar al Gobierno y la Administración",
+          "Representar a los sindicatos de trabajadores"
+        ],
+        answer: 1,
+        exp: "El art. 6 CE establece que los partidos políticos 'expresan el pluralismo político, concurren a la formación y manifestación de la voluntad popular y son instrumento fundamental para la participación política'."
+      },
+      {
+        q: "¿Qué condición impone la Constitución a la estructura interna de los partidos políticos?",
+        opts: ["Debe ser jerárquica","Debe ser democrática","Puede ser libre sin restricciones","Debe ser supervisada por el Estado"],
+        answer: 1,
+        exp: "El art. 6 CE exige que 'su estructura interna y funcionamiento deberán ser democráticos', tanto para los partidos como para los sindicatos."
+      },
+      {
+        q: "Según el artículo 7 CE, los sindicatos y asociaciones empresariales contribuyen a:",
+        opts: [
+          "La formación de la voluntad popular",
+          "La defensa y promoción de los intereses económicos y sociales que les son propios",
+          "La representación política de los ciudadanos",
+          "La elaboración de la legislación laboral"
+        ],
+        answer: 1,
+        exp: "El art. 7 CE establece que sindicatos y asociaciones empresariales 'contribuyen a la defensa y promoción de los intereses económicos y sociales que les son propios'."
+      },
+      {
+        q: "¿Qué ejércitos forman las Fuerzas Armadas según el artículo 8 CE?",
+        opts: [
+          "Ejército de Tierra, Marina y Ejército del Aire",
+          "Ejército de Tierra, Armada y Ejército del Aire",
+          "Ejército de Tierra, Armada y Guardia Civil",
+          "Ejército de Tierra, Marina y Cuerpo de Seguridad"
+        ],
+        answer: 1,
+        exp: "El art. 8.1 CE establece que las Fuerzas Armadas están 'constituidas por el Ejército de Tierra, la Armada y el Ejército del Aire'."
+      },
+      {
+        q: "¿Cuál es la misión de las Fuerzas Armadas según el artículo 8 CE?",
+        opts: [
+          "Mantener el orden público interior",
+          "Garantizar la soberanía, defender la integridad territorial y el ordenamiento constitucional",
+          "Colaborar con la Administración en catástrofes",
+          "Ejecutar las órdenes del Gobierno en cualquier materia"
+        ],
+        answer: 1,
+        exp: "El art. 8 CE establece que su misión es 'garantizar la soberanía e independencia de España, defender su integridad territorial y el ordenamiento constitucional'."
+      },
+      {
+        q: "¿Mediante qué tipo de norma se regulan las bases de la organización militar?",
+        opts: ["Ley ordinaria","Decreto-Ley","Ley Orgánica","Real Decreto"],
+        answer: 2,
+        exp: "El art. 8.2 CE establece que 'una ley orgánica regulará las bases de la organización militar conforme a los principios de la presente Constitución'."
+      },
+      {
+        q: "Según el artículo 9.1 CE, ¿quién está sujeto a la Constitución y al ordenamiento jurídico?",
+        opts: [
+          "Solo los poderes públicos",
+          "Solo los ciudadanos",
+          "Los ciudadanos y los poderes públicos",
+          "Solo los funcionarios del Estado"
+        ],
+        answer: 2,
+        exp: "El art. 9.1 CE establece que 'los ciudadanos y los poderes públicos están sujetos a la Constitución y el resto del ordenamiento jurídico'."
+      },
+      {
+        q: "Según el artículo 9.2 CE, corresponde a los poderes públicos facilitar:",
+        opts: [
+          "La participación ciudadana solo en la vida política",
+          "La participación en la vida política, económica, cultural y social",
+          "La participación de los partidos políticos",
+          "La participación de las CCAA en la legislación"
+        ],
+        answer: 1,
+        exp: "El art. 9.2 CE establece que los poderes públicos deben 'facilitar la participación de todos los ciudadanos en la vida política, económica, cultural y social'."
+      },
+      {
+        q: "El principio de 'interdicción de la arbitrariedad de los poderes públicos' está recogido en:",
+        opts: ["Art. 6 CE","Art. 7 CE","Art. 8 CE","Art. 9.3 CE"],
+        answer: 3,
+        exp: "El art. 9.3 CE garantiza la 'interdicción de la arbitrariedad de los poderes públicos', junto con la legalidad, publicidad de normas, irretroactividad, seguridad jurídica y responsabilidad."
+      },
+      {
+        q: "¿Qué principio del art. 9.3 exige que las normas sean conocidas por todos?",
+        opts: ["Principio de legalidad","Principio de publicidad de las normas","Principio de seguridad jurídica","Principio de responsabilidad"],
+        answer: 1,
+        exp: "El principio de publicidad de las normas (art. 9.3 CE) exige que las disposiciones sean publicadas oficialmente para que puedan ser conocidas por todos los ciudadanos. Sin publicidad no puede exigirse su cumplimiento."
+      }
+    ]
+  }
+];
+
+let currentExam = -1;
+let currentQ = 0;
+let userAnswers = [];
+let examScores = [null, null, null];
+let reviewed = false;
+
+function startExam(idx) {
+  currentExam = idx;
+  currentQ = 0;
+  userAnswers = new Array(EXAMS[idx].questions.length).fill(null);
+  reviewed = false;
+
+  document.getElementById('examGrid').style.display = 'none';
+  document.querySelector('.section-title').style.display = 'none';
+  document.getElementById('resultsArea').style.display = 'none';
+
+  const qa = document.getElementById('quizArea');
+  qa.classList.add('visible');
+  document.getElementById('quizTitle').textContent = EXAMS[idx].title;
+
+  renderDots();
+  renderQuestion();
+  updateProgress();
+}
+
+function renderDots() {
+  const nav = document.getElementById('dotNav');
+  const exam = EXAMS[currentExam];
+  nav.innerHTML = exam.questions.map((_, i) => {
+    let cls = 'dot';
+    if (i === currentQ) cls += ' current';
+    else if (userAnswers[i] !== null) cls += ' answered';
+    return `<div class="${cls}" onclick="goToQuestion(${i})">${i+1}</div>`;
+  }).join('');
+}
+
+function goToQuestion(i) {
+  currentQ = i;
+  renderQuestion();
+  renderDots();
+  updateProgress();
+}
+
+function renderQuestion() {
+  const exam = EXAMS[currentExam];
+  const q = exam.questions[currentQ];
+  const answered = userAnswers[currentQ] !== null;
+
+  const letters = ['A','B','C','D'];
+  const optsHTML = q.opts.map((o, i) => {
+    let cls = 'option';
+    if (answered) {
+      if (i === q.answer) cls += ' show-correct';
+      else if (i === userAnswers[currentQ] && i !== q.answer) cls += ' wrong';
+    } else if (userAnswers[currentQ] === i) {
+      cls += ' selected';
+    }
+    return `<button class="${cls}" onclick="selectAnswer(${i})" ${answered ? 'disabled' : ''}>
+      <span class="option-letter">${letters[i]}</span>
+      <span>${o}</span>
+    </button>`;
+  }).join('');
+
+  const expHTML = answered
+    ? `<div class="explanation visible"><strong>📖 Explicación</strong>${q.exp}</div>`
+    : `<div class="explanation"></div>`;
+
+  document.getElementById('questionContainer').innerHTML = `
+    <div class="question-card">
+      <div class="question-num">Pregunta ${currentQ + 1} de ${exam.questions.length}</div>
+      <div class="question-text">${q.q}</div>
+      <div class="options">${optsHTML}</div>
+      ${expHTML}
+    </div>
+  `;
+
+  const isLast = currentQ === exam.questions.length - 1;
+  const allAnswered = userAnswers.every(a => a !== null);
+
+  document.getElementById('btnPrev').disabled = currentQ === 0;
+  document.getElementById('btnNext').style.display = isLast ? 'none' : 'inline-flex';
+  document.getElementById('btnFinish').style.display = (isLast && allAnswered) ? 'inline-flex' : 'none';
+}
+
+function selectAnswer(optIdx) {
+  if (userAnswers[currentQ] !== null) return;
+  userAnswers[currentQ] = optIdx;
+  renderQuestion();
+  renderDots();
+
+  const allAnswered = userAnswers.every(a => a !== null);
+  const isLast = currentQ === EXAMS[currentExam].questions.length - 1;
+  if (isLast && allAnswered) {
+    document.getElementById('btnNext').style.display = 'none';
+    document.getElementById('btnFinish').style.display = 'inline-flex';
+  }
+}
+
+function nextQuestion() {
+  if (currentQ < EXAMS[currentExam].questions.length - 1) {
+    currentQ++;
+    renderQuestion();
+    renderDots();
+    updateProgress();
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+    renderDots();
+    updateProgress();
+  }
+}
+
+function updateProgress() {
+  const total = EXAMS[currentExam].questions.length;
+  const pct = ((currentQ + 1) / total * 100).toFixed(0);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${currentQ + 1}/${total}`;
+}
+
+function finishExam() {
+  const exam = EXAMS[currentExam];
+  let correct = 0;
+  userAnswers.forEach((a, i) => { if (a === exam.questions[i].answer) correct++; });
+  const total = exam.questions.length;
+  const pct = Math.round(correct / total * 100);
+  const pass = pct >= 60;
+
+  examScores[currentExam] = { correct, total, pct, pass };
+
+  // Update card
+  const scoreEl = document.getElementById(`score${currentExam}`);
+  scoreEl.textContent = `${pct}%`;
+  scoreEl.className = 'exam-score ' + (pass ? 'pass' : 'fail');
+  document.getElementById(`card${currentExam}`).classList.add('completed');
+
+  document.getElementById('quizArea').classList.remove('visible');
+  document.getElementById('resultsArea').style.display = 'block';
+
+  const circle = document.getElementById('resultsCircle');
+  circle.textContent = pct + '%';
+  circle.className = 'results-circle ' + (pass ? 'pass' : 'fail');
+
+  document.getElementById('resultsTitle').textContent = pass ? '¡Bien hecho!' : 'Sigue practicando';
+  document.getElementById('resultsSub').textContent = pass
+    ? `Has superado el examen con un ${pct}%. ¡A por el siguiente tema!`
+    : `Has obtenido un ${pct}%. Repasa el material e inténtalo de nuevo.`;
+
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = total - correct;
+  document.getElementById('rScore').textContent = pct + '%';
+}
+
+function reviewExam() {
+  reviewed = true;
+  document.getElementById('resultsArea').style.display = 'none';
+  document.getElementById('quizArea').classList.add('visible');
+  currentQ = 0;
+  renderDots();
+  renderQuestion();
+  updateProgress();
+
+  // Update dots with correct/wrong
+  const exam = EXAMS[currentExam];
+  const nav = document.getElementById('dotNav');
+  const dots = nav.querySelectorAll('.dot');
+  dots.forEach((d, i) => {
+    d.className = 'dot';
+    if (userAnswers[i] === exam.questions[i].answer) d.classList.add('correct-dot');
+    else d.classList.add('wrong-dot');
+    if (i === 0) d.classList.add('current');
+  });
+}
+
+function restartExam() {
+  startExam(currentExam);
+}
+
+function backToMenu() {
+  document.getElementById('quizArea').classList.remove('visible');
+  document.getElementById('resultsArea').style.display = 'none';
+  document.getElementById('examGrid').style.display = 'grid';
+  document.querySelector('.section-title').style.display = 'flex';
+}
+</script>
+</body>
+</html>
